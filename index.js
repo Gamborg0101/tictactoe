@@ -33,12 +33,21 @@ const playerTurn = () => {
 };
 
 const gameLogic = (x, y) => {
-  let gameSetup = gameboardFactory().gameBoard;
-  gameSetup[x][y] = "x";
-  console.log(gameSetup);
+  if (user1.userTurn || user2.userTurn) {
+    let gameSetup = gameboardFactory().gameBoard;
+    gameSetup[x][y] = user1.playerSymbol;
+    console.log(gameSetup);
+    playerTurn();
+  }
 };
 
-console.log(gameLogic(1, 1));
+const gameRound = () => {
+  let column = prompt("Give me an column!");
+  let row = prompt("Give me a row!");
+  gameLogic(column, row);
+};
+
+console.log(gameRound());
 
 /* 
 
