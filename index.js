@@ -13,29 +13,24 @@ const factoryPlayer = (name) => {
 };
 
 const createGameboard = () => {
-  // const gameGameboarArray = { row1: [123], row2: [456], row3: [789] };
-  const gameGameboarArray1 = { row1: [123] };
-  const gameGameboarArray2 = { row2: [456] };
-  const gameGameboarArray3 = { row3: [789] };
+  const gameBoard = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+  ];
 
-  return { gameGameboarArray1, gameGameboarArray2, gameGameboarArray3 };
+  return { gameBoard };
 };
+
+console.log(createGameboard());
 
 const gameLogic = () => {
   /* lose / win logic */
 };
 
-const player1 = factoryPlayer("Casper");
-const player2 = factoryPlayer("Søren");
-
-console.log(createGameboard());
-
 /* 
 makeBoard()
-Row: 3 
-Column: 3
-Push ind i et array, så vi får et 2d array, med tal i. 
-for loop med incrementing variabel.
+Meget simpelt array. 
 
 
 factoryPlayer()
