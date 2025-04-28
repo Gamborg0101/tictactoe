@@ -1,42 +1,46 @@
-const scoreBoard = () => {
-  let thing = 1;
-
-  return { thing };
-};
-
-// console.log(scoreBoard);
-
-const factoryPlayer = (name) => {
+const factoryPlayer = (name, symbol) => {
   const playerName = name;
+  const playerSymbol = symbol;
 
-  return { playerName };
+  return { playerName, playerSymbol };
 };
 
-const createGameboard = () => {
-  const gameBoard = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-  ];
+let user1 = factoryPlayer("Casper", "x");
+let user2 = factoryPlayer("Jens", "y");
 
+const gameboardFactory = () => {
+  const gameBoard = [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0],
+  ];
   return { gameBoard };
 };
 
-console.log(createGameboard());
+const playerTurn = () => {};
 
-const gameLogic = () => {
-  /* lose / win logic */
+const gameLogic = (x, y) => {
+  let gameSetup = gameboardFactory().gameBoard;
+  gameSetup[x][y] = "x";
+  console.log(gameSetup);
 };
 
+console.log(gameLogic(1, 1));
+
 /* 
-makeBoard()
-Meget simpelt array. 
 
 
-factoryPlayer()
-Skal lave 2 spillere, 1 og 2. 
-De skal have et navn. 
-
+Sekvens: 
+Start spil
+Navngiv hver spiller
+Lav board
+Spiller 1 tur
+Skift tur 
+Spiller 2 tur 
+Skift tur 
+Skifte indtil spiller rammer vindersekvens 
+Vinner annonceret 
+Mulighed for reset
 
 gameLogic()
 Hvis en har den ønskede sekvens i arrayet, f.eks [0, 1, 2]
