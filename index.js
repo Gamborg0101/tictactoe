@@ -1,12 +1,16 @@
-const factoryPlayer = (name, symbol) => {
-  const playerName = name;
+const factoryPlayer = (name, symbol, firstTurn) => {
   const playerSymbol = symbol;
+  const playerName = name;
+  const userTurn = firstTurn;
 
-  return { playerName, playerSymbol };
+  return { playerName, playerSymbol, userTurn };
 };
 
-let user1 = factoryPlayer("Casper", "x");
-let user2 = factoryPlayer("Jens", "y");
+let user1 = factoryPlayer("Casper", "x", true);
+let user2 = factoryPlayer("Jens", "y", false);
+
+// console.log(user1);
+// console.log(user2);
 
 const gameboardFactory = () => {
   const gameBoard = [
@@ -17,7 +21,16 @@ const gameboardFactory = () => {
   return { gameBoard };
 };
 
-const playerTurn = () => {};
+/* userTurn ændres ved hvert kald. */
+const playerTurn = () => {
+  if (user1.userTurn) {
+    user1.userTurn = false;
+    user2.userTurn = true;
+  } else {
+    user1.userTurn = true;
+    user2.userTurn = false;
+  }
+};
 
 const gameLogic = (x, y) => {
   let gameSetup = gameboardFactory().gameBoard;
@@ -29,14 +42,17 @@ console.log(gameLogic(1, 1));
 
 /* 
 
-
 Sekvens: 
 Start spil
 Navngiv hver spiller
 Lav board
+Print board
+
 Spiller 1 tur
+Opdater array
 Skift tur 
-Spiller 2 tur 
+Spiller 2 tur
+Opdater array 
 Skift tur 
 Skifte indtil spiller rammer vindersekvens 
 Vinner annonceret 
