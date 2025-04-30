@@ -16,8 +16,8 @@ const game = () => {
   const gameboard = () => {
     return [
       [0, 1, 0],
-      [1, 1, 1],
-      [0, 0, 1],
+      [0, 1, 0],
+      [0, 1, 0],
     ];
   };
 
@@ -45,34 +45,24 @@ const game = () => {
   const checkWinner = () => {
     /* COLUMN CHECK */
     function columnCheck() {
-      for (let row = 0; row < gameBoard.length; row++) {
-        let columnValue = [];
-        for (let column = 0; column < gameBoard[row].length; column++) {
-          console.log(gameBoard[row][column]);
-          column;
+      function checkSingleColumn(n) {
+        if (gameBoard.map((column) => column[n]).every((index) => index == 1)) {
+          return console.log("Winner with columns", n);
         }
-
-        console.log("--------");
       }
-      // gameBoard.map((value) => {
-      //   console.log(value);
-      //   if (value[0] == 1 && value[1] == 1 && value[2] == 1) {
-      //     console.log("Winner with columns");
-      //   }
-      // });
+      for (let n = 0; n < 3; n++) {
+        checkSingleColumn(n);
+      }
     }
 
-    /*
-  
-    array.every((value) => value == 1)
-*/
+    //console.log(gameBoard.map((column) => column[0]));
 
     /* ROW CHECK */
     function rowCheck() {
-      for (let n = 0; n < gameBoard.length; n++) {
-        let cell1 = gameBoard[0][n];
-        let cell2 = gameBoard[1][n];
-        let cell3 = gameBoard[2][n];
+      for (let row = 0; row < gameBoard.length; row++) {
+        let cell1 = gameBoard[0][row];
+        let cell2 = gameBoard[1][row];
+        let cell3 = gameBoard[2][row];
         if (cell1 == 1 && cell1 == cell2 && cell2 == cell3 && cell3 == cell1) {
           console.log("Winner with rows");
         }
@@ -115,7 +105,6 @@ const game = () => {
       console.log("Invaild input");
     }
     symbolPlacementLogic(column, row);
-    console.log(gameBoard);
 
     playerTurnChange();
   };
