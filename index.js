@@ -1,10 +1,22 @@
 const game = () => {
-  const factoryPlayer = (name, symbol) => {
-    return { name, symbol, userTurn: false };
+  const factoryPlayer = (name, symbol, userturn) => {
+    return { name, symbol, userturn };
   };
 
-  let user1 = factoryPlayer("Casper", "x");
-  let user2 = factoryPlayer("Jens", "o");
+  function randomizeStartPlayer() {
+    let randomizeStartPlayer = Math.floor(Math.random() * 2);
+    if (randomizeStartPlayer === 1) {
+      user1.userturn = true;
+    } else if (randomizeStartPlayer === 0) user2.userturn = true;
+  }
+
+  let user1 = factoryPlayer("Casper", "x", false);
+  let user2 = factoryPlayer("Jens", "o", false);
+
+  randomizeStartPlayer();
+
+  console.log(user1);
+  console.log(user2);
 
   const gameboard = [
     ["", "", ""],
@@ -18,27 +30,6 @@ const game = () => {
       return (user1.userTurn = true);
     } else {
       return (user2.userTurn = true);
-    }
-  };
-
-  const currentPlayer = () => (user1.userTurn ? user1 : user2);
-
-  /* userTurn ændres ved hvert kald. */
-  const switchTurns = () => {
-    user1.userTurn = !user1.userTurn;
-    user2.userTurn = !user2.userTurn;
-  };
-
-  /* Placering af symbol */
-  const placeSymbol = (x, y) => {
-    const player = currentPlayer();
-
-    if (gameboard[x][y] === "") {
-      gameboard[x][y] = player.symbol;
-      return true;
-    } else {
-      console.log("Field already taken");
-      return false;
     }
   };
 
@@ -86,23 +77,24 @@ const game = () => {
     }
   };
 
-  const playTurn = (x, y) => {
-    if (!placeSymbol(x, y)) return;
-
-    if (checkWinner()) {
-      console.log("Game over!");
-      return;
-    }
-    switchTurns();
-    console.log("Next turn:", currentPlayer().name);
+  const switchTurns = () => {
+    user1.userturn = !user1.userturn;
+    user2.userturn = !user2.userturn;
   };
 
-  starttingPlayer();
-  console.log("Starting player: ", currentPlayer().name);
-  playTurn(1, 1);
-  console.log(gameboard);
-  playTurn(0, 1);
-  console.log(gameboard);
+  function placeSymbol(x, y) {
+    let userSymbol = user1.userturn ? user1.symbol : user2.symbol;
+    gameboard[x][y] = userSymbol;
+    switchTurns();
+    console.log(gameboard);
+  }
+
+  /* Det næste jeg skal gøre, er, at tjekke hvem der har vndet.  */
+
+  console.log(user1);
+  placeSymbol(1, 1);
+  console.log(user1);
+  placeSymbol(0, 1);
 };
 
 game();
