@@ -1,23 +1,27 @@
 const game = () => {
-  const factoryPlayer = (name, symbol, firstTurn) => {
-    const playerSymbol = symbol;
-    const playerName = name;
-    const userTurn = firstTurn;
-
-    return { playerName, playerSymbol, userTurn };
+  const factoryPlayer = (name, symbol) => {
+    return { name, symbol, userTurn: false };
   };
 
-  let user1 = factoryPlayer("Casper", "x", true);
-  let user2 = factoryPlayer("Jens", "y", false);
+  let user1 = factoryPlayer("Casper", "x");
+  let user2 = factoryPlayer("Jens", "o");
 
-  // console.log(user1);
-  // console.log(user2);
+  const starttingPlayer = () => {
+    let selectPlayer = Math.floor(Math.random() * 2);
+    if (selectPlayer === 0) {
+      return (user1.userTurn = true);
+    } else {
+      return (user2.userTurn = true);
+    }
+  };
+  starttingPlayer();
+  //console.log(user1.userTurn);
 
   const gameboard = () => {
     return [
-      [0, 0, 1],
+      [0, 0, 0],
       [0, 1, 0],
-      [1, 0, 1],
+      [1, 0, 0],
     ];
   };
 
@@ -64,7 +68,6 @@ const game = () => {
       }
     }
 
-    /* DIAGONAL CHECK left top - right bottom */
     function checkDiagonalLeftRight() {
       const diagonalCoordinatsLeft = [];
       for (let n = 0; n < 3; n++) {
@@ -75,7 +78,6 @@ const game = () => {
       }
     }
 
-    /* DIAGONAL CHECK right top - left bottom */
     function checkDiagonalRightLeft() {
       const diagonalCoordinatsRight = [];
       for (let n = 0; n < 3; n++) {
@@ -91,7 +93,9 @@ const game = () => {
     checkDiagonalRightLeft();
   };
 
-  checkWinner();
+  if (user1.userTurn) {
+  } else {
+  }
 
   /* Logik for hver runde */
   const playTurn = () => {
@@ -105,6 +109,10 @@ const game = () => {
     symbolPlacementLogic(column, row);
 
     playerTurnChange();
+
+    if (checkWinner()) {
+      console.log("stop game");
+    }
   };
   console.log(playTurn());
 
