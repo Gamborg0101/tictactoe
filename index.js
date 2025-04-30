@@ -15,9 +15,9 @@ const game = () => {
 
   const gameboard = () => {
     return [
+      [0, 0, 1],
       [0, 1, 0],
-      [0, 1, 0],
-      [0, 1, 0],
+      [1, 0, 1],
     ];
   };
 
@@ -41,56 +41,54 @@ const game = () => {
     }
   };
 
-  /* Tjekker om spiller har vundet */
   const checkWinner = () => {
-    /* COLUMN CHECK */
-    function columnCheck() {
-      function checkSingleColumn(n) {
+    function checkColumn() {
+      for (let n = 0; n < 3; n++) {
+        checkSignleColumn(n);
+      }
+      function checkSignleColumn(n) {
         if (gameBoard.map((column) => column[n]).every((index) => index == 1)) {
           return console.log("Winner with columns", n);
         }
       }
-      for (let n = 0; n < 3; n++) {
-        checkSingleColumn(n);
-      }
     }
 
-    //console.log(gameBoard.map((column) => column[0]));
-
-    /* ROW CHECK */
-    function rowCheck() {
-      for (let row = 0; row < gameBoard.length; row++) {
-        let cell1 = gameBoard[0][row];
-        let cell2 = gameBoard[1][row];
-        let cell3 = gameBoard[2][row];
-        if (cell1 == 1 && cell1 == cell2 && cell2 == cell3 && cell3 == cell1) {
-          console.log("Winner with rows");
+    function checkRow() {
+      for (let n = 0; n < 3; n++) {
+        checkSingleRow(n);
+      }
+      function checkSingleRow(n) {
+        if (gameBoard[n].map((column) => column).every((index) => index == 1)) {
+          return console.log("Winner with rows", n);
         }
       }
     }
 
     /* DIAGONAL CHECK left top - right bottom */
-
-    function diagonalLeftRightCheck() {
-      let cell1 = gameBoard[0][0];
-      let cell2 = gameBoard[1][1];
-      let cell3 = gameBoard[2][2];
-      if (cell1 == 1 && cell1 == cell2 && cell2 == cell3 && cell3 == cell1)
-        console.log("Winner with diagonal (left top - right bottom)");
+    function checkDiagonalLeftRight() {
+      const diagonalCoordinatsLeft = [];
+      for (let n = 0; n < 3; n++) {
+        diagonalCoordinatsLeft.push(gameBoard[n][n]);
+      }
+      if (diagonalCoordinatsLeft.every((index) => index == 1)) {
+        console.log("Winner with diagonalCoordinatsLeft");
+      }
     }
 
     /* DIAGONAL CHECK right top - left bottom */
-    function diagonalRightLeftCheck() {
-      let cell1 = gameBoard[0][2];
-      let cell2 = gameBoard[1][1];
-      let cell3 = gameBoard[2][0];
-      if (cell1 == 1 && cell1 == cell2 && cell2 == cell3 && cell3 == cell1)
-        console.log("Winner with diagonal (right top - left bottom)");
+    function checkDiagonalRightLeft() {
+      const diagonalCoordinatsRight = [];
+      for (let n = 0; n < 3; n++) {
+        diagonalCoordinatsRight.push(gameBoard[n][2 - n]);
+      }
+      if (diagonalCoordinatsRight.every((index) => index == 1)) {
+        console.log("Winner with checkDiagonalRightLeft");
+      }
     }
-    diagonalLeftRightCheck();
-    diagonalRightLeftCheck();
-    rowCheck();
-    columnCheck();
+    checkColumn();
+    checkRow();
+    checkDiagonalLeftRight();
+    checkDiagonalRightLeft();
   };
 
   checkWinner();
