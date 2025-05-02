@@ -1,13 +1,15 @@
 const layout = () => {};
 
+/* Logic for placing symbols */
 const squares = document.querySelectorAll(".square");
 
 squares.forEach((square) => {
-  let classList = square.className.split(" ");
-  const values = classList[1];
+  const addDiv = document.createElement("div");
+  addDiv.innerText = "x";
 
-  square.addEventListener("click", () => {
-    console.log(values);
+  square.addEventListener("click", (e) => {
+    let cellArea = e.target;
+    cellArea.appendChild(addDiv);
   });
 });
 
