@@ -1,3 +1,18 @@
+const layout = () => {};
+
+const squares = document.querySelectorAll(".square");
+
+squares.forEach((square) => {
+  let classList = square.className.split(" ");
+  const values = classList[1];
+
+  square.addEventListener("click", () => {
+    console.log(values);
+  });
+});
+
+/* All below is game logic */
+
 const game = () => {
   const factoryPlayer = (name, symbol, userturn) => {
     return { name, symbol, userturn };
@@ -92,17 +107,16 @@ const game = () => {
     checkWinner(userSymbol);
   }
 
-  placeSymbol(0, 2);
-  placeSymbol(2, 1);
-  placeSymbol(0, 0);
-  placeSymbol(2, 2);
-  placeSymbol(1, 2);
-  placeSymbol(2, 0);
+  // placeSymbol(0, 2);
+  // placeSymbol(2, 1);
+  // placeSymbol(0, 0);
+  // placeSymbol(2, 2);
+  // placeSymbol(1, 2);
+  // placeSymbol(2, 0);
 };
 
 game();
-
+layout();
 function resetGame() {
   game();
 }
-/* TEST TEST */

@@ -1,5 +1,48 @@
 * {
   margin: 0;
   padding: 0;
+  background-color: var(--background);
 }
 
+:root {
+  --background: #eae2b7;
+}
+
+#game-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  font-size: 3rem;
+}
+
+#reset {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+#main-container {
+  display: flex;
+  margin-top: 80px;
+  justify-content: center;
+  padding: 10px;
+}
+
+#square-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+#square-container > div {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px solid black;
+}
