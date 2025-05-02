@@ -15,8 +15,8 @@ const game = () => {
 
   randomizeStartPlayer();
 
-  console.log(user1);
-  console.log(user2);
+  // console.log(user1);
+  // console.log(user2);
 
   const gameboard = [
     ["", "", ""],
@@ -27,19 +27,23 @@ const game = () => {
   const starttingPlayer = () => {
     let selectPlayer = Math.floor(Math.random() * 2);
     if (selectPlayer === 0) {
-      return (user1.userTurn = true);
+      return (user1.userturn = true);
     } else {
-      return (user2.userTurn = true);
+      return (user2.userturn = true);
     }
   };
 
-  const checkWinner = () => {
+  const checkWinner = (userSymbol) => {
+    console.log(gameboard);
     function checkColumn() {
       for (let n = 0; n < 3; n++) {
         checkSignleColumn(n);
       }
       function checkSignleColumn(n) {
-        if (gameboard.map((column) => column[n]).every((index) => index == 1)) {
+        console.log(userSymbol);
+        if (
+          gameboard.map((cell) => cell[n]).every((index) => index == userSymbol)
+        ) {
           return console.log("Winner with columns", n);
         }
       }
@@ -50,7 +54,9 @@ const game = () => {
         checkSingleRow(n);
       }
       function checkSingleRow(n) {
-        if (gameboard[n].map((column) => column).every((index) => index == 1)) {
+        if (
+          gameboard[n].map((cell) => cell).every((index) => index == userSymbol)
+        ) {
           return console.log("Winner with rows", n);
         }
       }
@@ -61,8 +67,8 @@ const game = () => {
       for (let n = 0; n < 3; n++) {
         diagonalCoordinatsLeft.push(gameboard[n][n]);
       }
-      if (diagonalCoordinatsLeft.every((index) => index == 1)) {
-        console.log("Winner with diagonalCoordinatsLeft");
+      if (diagonalCoordinatsLeft.every((index) => index == userSymbol)) {
+        return console.log("Winner with diagonalCoordinatsLeft");
       }
     }
 
@@ -71,10 +77,14 @@ const game = () => {
       for (let n = 0; n < 3; n++) {
         diagonalCoordinatsRight.push(gameboard[n][2 - n]);
       }
-      if (diagonalCoordinatsRight.every((index) => index == 1)) {
-        console.log("Winner with checkDiagonalRightLeft");
+      if (diagonalCoordinatsRight.every((index) => index == userSymbol)) {
+        return console.log("Winner with checkDiagonalRightLeft");
       }
     }
+    checkColumn();
+    checkRow();
+    checkDiagonalLeftRight();
+    checkDiagonalRightLeft();
   };
 
   const switchTurns = () => {
@@ -86,15 +96,19 @@ const game = () => {
     let userSymbol = user1.userturn ? user1.symbol : user2.symbol;
     gameboard[x][y] = userSymbol;
     switchTurns();
-    console.log(gameboard);
+
+    checkWinner(userSymbol);
   }
 
   /* Det næste jeg skal gøre, er, at tjekke hvem der har vndet.  */
 
-  console.log(user1);
-  placeSymbol(1, 1);
-  console.log(user1);
-  placeSymbol(0, 1);
+  placeSymbol(0, 2);
+
+  placeSymbol(2, 1);
+  placeSymbol(0, 0);
+  placeSymbol(2, 2);
+  placeSymbol(1, 2);
+  placeSymbol(2, 0);
 };
 
 game();
