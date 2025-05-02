@@ -24,15 +24,6 @@ const game = () => {
     ["", "", ""],
   ];
 
-  const starttingPlayer = () => {
-    let selectPlayer = Math.floor(Math.random() * 2);
-    if (selectPlayer === 0) {
-      return (user1.userturn = true);
-    } else {
-      return (user2.userturn = true);
-    }
-  };
-
   const checkWinner = (userSymbol) => {
     console.log(gameboard);
     function checkColumn() {
@@ -93,6 +84,7 @@ const game = () => {
   };
 
   function placeSymbol(x, y) {
+    /* User input here. */
     let userSymbol = user1.userturn ? user1.symbol : user2.symbol;
     gameboard[x][y] = userSymbol;
     switchTurns();
@@ -100,10 +92,7 @@ const game = () => {
     checkWinner(userSymbol);
   }
 
-  /* Det næste jeg skal gøre, er, at tjekke hvem der har vndet.  */
-
   placeSymbol(0, 2);
-
   placeSymbol(2, 1);
   placeSymbol(0, 0);
   placeSymbol(2, 2);
@@ -112,3 +101,8 @@ const game = () => {
 };
 
 game();
+
+function resetGame() {
+  game();
+}
+/* TEST TEST */
