@@ -1,18 +1,5 @@
 const layout = () => {};
 
-/* Logic for placing symbols */
-const squares = document.querySelectorAll(".square");
-
-squares.forEach((square) => {
-  const addDiv = document.createElement("div");
-  addDiv.innerText = "x";
-
-  square.addEventListener("click", (e) => {
-    let cellArea = e.target;
-    cellArea.appendChild(addDiv);
-  });
-});
-
 /* All below is game logic */
 
 const game = () => {
@@ -102,13 +89,27 @@ const game = () => {
 
   function placeSymbol(x, y) {
     /* User input here. */
+
     let userSymbol = user1.userturn ? user1.symbol : user2.symbol;
     gameboard[x][y] = userSymbol;
-    switchTurns();
 
+    /* Logic for placing in a div - BUG HERE - need to get userinput*/
+    const squares = document.querySelectorAll(".square");
+
+    squares.forEach((square) => {
+      const addDiv = document.createElement("div");
+      addDiv.innerText = userSymbol;
+
+      square.addEventListener("click", (e) => {
+        let cellArea = e.target;
+        cellArea.appendChild(addDiv);
+      });
+    });
+
+    switchTurns();
     checkWinner(userSymbol);
   }
-
+  placeSymbol(1, 1);
   // placeSymbol(0, 2);
   // placeSymbol(2, 1);
   // placeSymbol(0, 0);
