@@ -87,24 +87,34 @@ const game = () => {
     user2.userturn = !user2.userturn;
   };
 
-  function placeSymbol(x, y) {
-    /* User input here. */
-
-    let userSymbol = user1.userturn ? user1.symbol : user2.symbol;
-    gameboard[x][y] = userSymbol;
-
-    /* Logic for placing in a div - BUG HERE - need to get userinput*/
+  function getCoordinates() {
     const squares = document.querySelectorAll(".square");
 
     squares.forEach((square) => {
-      const addDiv = document.createElement("div");
-      addDiv.innerText = userSymbol;
-
       square.addEventListener("click", (e) => {
-        let cellArea = e.target;
-        cellArea.appendChild(addDiv);
+        let coordinates = e.target.classList[1];
+        coordinatesSplit = coordinates.split("-")[1];
+        console.log(coordinatesSplit);
+        coordinateX 
       });
     });
+
+    let coordinateX = "";
+    let coordinateY = "";
+  }
+
+  getCoordinates();
+
+  function placeSymbol(x, y) {
+    /* User input here. */
+
+    const addDiv = document.createElement("div");
+
+    let userSymbol = user1.userturn ? user1.symbol : user2.symbol;
+    gameboard[x][y] = userSymbol;
+    // addDiv.innerText = userSymbol;
+
+    /* Logic for placing in a div - BUG HERE - need to get userinput*/
 
     switchTurns();
     checkWinner(userSymbol);
