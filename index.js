@@ -128,12 +128,12 @@ game();
 layout();
 function resetGame() {
   const resetButton = document.getElementById("reset");
+  const squares = document.querySelectorAll(".square");
   resetButton.addEventListener("click", () => {
-    const gameboard = [
-      ["", "", ""],
-      ["", "", ""],
-      ["", "", ""],
-    ];
+    squares.forEach((cell) => {
+      cell.innerText = "";
+    });
+    game();
   });
 }
 
