@@ -1,4 +1,5 @@
 const game = () => {
+  let gameover = false;
   const factoryPlayer = (name, symbol, userturn) => {
     return { name, symbol, userturn };
   };
@@ -36,6 +37,7 @@ const game = () => {
         gameboard.map((cell) => cell[n]).every((index) => index == userSymbol)
       ) {
         console.log("Winner with columns", n);
+        gameover = true;
         return true;
       }
     }
@@ -50,6 +52,7 @@ const game = () => {
         gameboard[n].map((cell) => cell).every((index) => index == userSymbol)
       ) {
         console.log("Winner with rows", n);
+        gameover = true;
         return true;
       }
     }
@@ -61,6 +64,7 @@ const game = () => {
       }
       if (diagonalCoordinatesLeft.every((index) => index == userSymbol)) {
         console.log("Winner with diagonalCoordinatesLeft");
+        gameover = true;
         return true;
       }
     }
@@ -72,6 +76,7 @@ const game = () => {
       }
       if (diagonalCoordinatsRight.every((index) => index == userSymbol)) {
         console.log("Winner with checkDiagonalRightLeft");
+        gameover = true;
         return true;
       }
     }
@@ -99,7 +104,9 @@ const game = () => {
   getCoordinates();
 
   function placeSymbol(x, y, e) {
-    console.log(e.target.innerText);
+    if (gameover == true) {
+      return;
+    }
     if (e.target.innerText !== "") {
       return;
     }
@@ -137,3 +144,21 @@ function resetGame() {
 game();
 
 resetGame();
+
+/*
+Brug af gameover: 
+
+Start game() med: 
+gameover = false
+
+Når en vinderfunktion køres, så lav gameover = true
+
+og så inde i placeSymbol, der kan jeg bruge: 
+if(gameover = true){
+return;
+}
+
+
+
+
+*/
