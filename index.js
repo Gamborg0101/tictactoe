@@ -38,6 +38,7 @@ const game = () => {
       ) {
         console.log("Winner with columns", n);
         gameover = true;
+        winnerDeclaration(user1, user2);
         return true;
       }
     }
@@ -52,6 +53,7 @@ const game = () => {
         gameboard[n].map((cell) => cell).every((index) => index == userSymbol)
       ) {
         console.log("Winner with rows", n);
+        winnerDeclaration(user1, user2);
         gameover = true;
         return true;
       }
@@ -65,6 +67,7 @@ const game = () => {
       if (diagonalCoordinatesLeft.every((index) => index == userSymbol)) {
         console.log("Winner with diagonalCoordinatesLeft");
         gameover = true;
+        winnerDeclaration(user1, user2);
         return true;
       }
     }
@@ -77,6 +80,7 @@ const game = () => {
       if (diagonalCoordinatsRight.every((index) => index == userSymbol)) {
         console.log("Winner with checkDiagonalRightLeft");
         gameover = true;
+        winnerDeclaration(user1, user2);
         return true;
       }
     }
@@ -85,6 +89,15 @@ const game = () => {
     checkDiagonalLeftRight();
     checkDiagonalRightLeft();
   };
+
+  function winnerDeclaration(user1, user2) {
+    winnerPlacement = document.getElementById("winnerName");
+    console.log(user1);
+    console.log(user2);
+    user1.userturn
+      ? (winnerPlacement.innerText = user1.name)
+      : (winnerPlacement.innerText = user2.name);
+  }
 
   const switchTurns = () => {
     user1.userturn = !user1.userturn;
@@ -113,8 +126,8 @@ const game = () => {
     const userSymbol = getCurrentUserSymbol();
     updateBoard(x, y, userSymbol);
     renderSymbol(e.target, userSymbol);
-    switchTurns();
     checkWinner(userSymbol);
+    switchTurns();
   }
 
   function renderSymbol(square, symbol) {
@@ -133,7 +146,11 @@ const game = () => {
 function resetGame() {
   const resetButton = document.getElementById("reset");
   const squares = document.querySelectorAll(".square");
+  winnerPlacement = document.getElementById("winnerName");
+
   resetButton.addEventListener("click", () => {
+    winnerPlacement.innerText = "";
+
     squares.forEach((cell) => {
       cell.innerText = "";
     });
@@ -144,21 +161,3 @@ function resetGame() {
 game();
 
 resetGame();
-
-/*
-Brug af gameover: 
-
-Start game() med: 
-gameover = false
-
-Når en vinderfunktion køres, så lav gameover = true
-
-og så inde i placeSymbol, der kan jeg bruge: 
-if(gameover = true){
-return;
-}
-
-
-
-
-*/
