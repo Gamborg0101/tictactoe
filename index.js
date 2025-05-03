@@ -1,7 +1,3 @@
-const layout = () => {};
-
-/* All below is game logic */
-
 const game = () => {
   const factoryPlayer = (name, symbol, userturn) => {
     return { name, symbol, userturn };
@@ -14,8 +10,8 @@ const game = () => {
     } else if (randomizeStartPlayer === 0) user2.userturn = true;
   }
 
-  let user1 = factoryPlayer("Casper", "x", false);
-  let user2 = factoryPlayer("Jens", "o", false);
+  const user1 = factoryPlayer("Casper", "x", false);
+  const user2 = factoryPlayer("Jens", "o", false);
 
   randomizeStartPlayer();
 
@@ -34,12 +30,12 @@ const game = () => {
       for (let n = 0; n < 3; n++) {
         checkSingleColumn(n);
       }
-      function checkSingleColumn(n) {
-        if (
-          gameboard.map((cell) => cell[n]).every((index) => index == userSymbol)
-        ) {
-          return console.log("Winner with columns", n);
-        }
+    }
+    function checkSingleColumn(n) {
+      if (
+        gameboard.map((cell) => cell[n]).every((index) => index == userSymbol)
+      ) {
+        return console.log("Winner with columns", n);
       }
     }
 
@@ -47,12 +43,12 @@ const game = () => {
       for (let n = 0; n < 3; n++) {
         checkSingleRow(n);
       }
-      function checkSingleRow(n) {
-        if (
-          gameboard[n].map((cell) => cell).every((index) => index == userSymbol)
-        ) {
-          return console.log("Winner with rows", n);
-        }
+    }
+    function checkSingleRow(n) {
+      if (
+        gameboard[n].map((cell) => cell).every((index) => index == userSymbol)
+      ) {
+        return console.log("Winner with rows", n);
       }
     }
 
@@ -90,11 +86,8 @@ const game = () => {
     const squares = document.querySelectorAll(".square");
     squares.forEach((square) => {
       square.addEventListener("click", (e) => {
-        let coordinates = e.target.classList[1];
-        let coordinatesSplit = coordinates.split("-")[1];
-        let coordinateX = coordinatesSplit[0];
-        let coordinateY = coordinatesSplit[1];
-
+        let coordinateX = e.target.dataset.x;
+        let coordinateY = e.target.dataset.y;
         placeSymbol(coordinateX, coordinateY, e);
       });
     });
@@ -124,8 +117,6 @@ const game = () => {
   }
 };
 
-game();
-layout();
 function resetGame() {
   const resetButton = document.getElementById("reset");
   const squares = document.querySelectorAll(".square");
@@ -136,5 +127,7 @@ function resetGame() {
     game();
   });
 }
+
+game();
 
 resetGame();
