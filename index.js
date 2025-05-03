@@ -29,13 +29,12 @@ const game = () => {
   ];
 
   const checkWinner = (userSymbol) => {
-    console.log(gameboard);
+    // console.log(gameboard);
     function checkColumn() {
       for (let n = 0; n < 3; n++) {
-        checkSignleColumn(n);
+        checkSingleColumn(n);
       }
-      function checkSignleColumn(n) {
-        console.log(userSymbol);
+      function checkSingleColumn(n) {
         if (
           gameboard.map((cell) => cell[n]).every((index) => index == userSymbol)
         ) {
@@ -89,47 +88,53 @@ const game = () => {
 
   function getCoordinates() {
     const squares = document.querySelectorAll(".square");
-
     squares.forEach((square) => {
       square.addEventListener("click", (e) => {
         let coordinates = e.target.classList[1];
-        coordinatesSplit = coordinates.split("-")[1];
-        console.log(coordinatesSplit);
-        coordinateX 
+        let coordinatesSplit = coordinates.split("-")[1];
+        let coordinateX = coordinatesSplit[0];
+        let coordinateY = coordinatesSplit[1];
+
+        placeSymbol(coordinateX, coordinateY, e);
       });
     });
-
-    let coordinateX = "";
-    let coordinateY = "";
   }
 
-  getCoordinates();
-
-  function placeSymbol(x, y) {
-    /* User input here. */
-
-    const addDiv = document.createElement("div");
-
-    let userSymbol = user1.userturn ? user1.symbol : user2.symbol;
-    gameboard[x][y] = userSymbol;
-    // addDiv.innerText = userSymbol;
-
-    /* Logic for placing in a div - BUG HERE - need to get userinput*/
-
+  function placeSymbol(x, y, e) {
+    const userSymbol = getCurrentUserSymbol();
+    updateBoard(x, y, userSymbol);
+    renderSymbol(e.target, userSymbol);
     switchTurns();
     checkWinner(userSymbol);
   }
-  placeSymbol(1, 1);
-  // placeSymbol(0, 2);
-  // placeSymbol(2, 1);
-  // placeSymbol(0, 0);
-  // placeSymbol(2, 2);
-  // placeSymbol(1, 2);
-  // placeSymbol(2, 0);
+  getCoordinates();
+
+  function renderSymbol(square, symbol) {
+    square.innerText = symbol;
+    const userPlacement = document.createElement("div");
+    square.appendChild(userPlacement);
+  }
+
+  function updateBoard(x, y, symbol) {
+    gameboard[x][y] = symbol;
+  }
+
+  function getCurrentUserSymbol() {
+    return user1.userturn ? user1.symbol : user2.symbol;
+  }
 };
 
 game();
 layout();
 function resetGame() {
-  game();
+  const resetButton = document.getElementById("reset");
+  resetButton.addEventListener("click", () => {
+    const gameboard = [
+      ["", "", ""],
+      ["", "", ""],
+      ["", "", ""],
+    ];
+  });
 }
+
+resetGame();
