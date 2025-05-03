@@ -11,13 +11,10 @@ const game = () => {
     } else if (randomizeStartPlayer === 0) user2.userturn = true;
   }
 
-  const user1 = factoryPlayer("Casper", "x", false);
-  const user2 = factoryPlayer("Jens", "o", false);
+  const user1 = factoryPlayer("Player 1", "x", false);
+  const user2 = factoryPlayer("Player 2", "o", false);
 
   randomizeStartPlayer();
-
-  // console.log(user1);
-  // console.log(user2);
 
   const gameboard = [
     ["", "", ""],
@@ -26,7 +23,6 @@ const game = () => {
   ];
 
   const checkWinner = (userSymbol) => {
-    // console.log(gameboard);
     function checkColumn() {
       for (let n = 0; n < 3; n++) {
         checkSingleColumn(n);
@@ -91,9 +87,7 @@ const game = () => {
   };
 
   function winnerDeclaration(user1, user2) {
-    winnerPlacement = document.getElementById("winnerName");
-    console.log(user1);
-    console.log(user2);
+    const winnerPlacement = document.getElementById("winnerName");
     user1.userturn
       ? (winnerPlacement.innerText = user1.name)
       : (winnerPlacement.innerText = user2.name);
@@ -146,11 +140,10 @@ const game = () => {
 function resetGame() {
   const resetButton = document.getElementById("reset");
   const squares = document.querySelectorAll(".square");
-  winnerPlacement = document.getElementById("winnerName");
+  const winnerPlacement = document.getElementById("winnerName");
 
   resetButton.addEventListener("click", () => {
     winnerPlacement.innerText = "";
-
     squares.forEach((cell) => {
       cell.innerText = "";
     });
