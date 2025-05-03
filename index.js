@@ -35,7 +35,8 @@ const game = () => {
       if (
         gameboard.map((cell) => cell[n]).every((index) => index == userSymbol)
       ) {
-        return console.log("Winner with columns", n);
+        console.log("Winner with columns", n);
+        return true;
       }
     }
 
@@ -48,17 +49,19 @@ const game = () => {
       if (
         gameboard[n].map((cell) => cell).every((index) => index == userSymbol)
       ) {
-        return console.log("Winner with rows", n);
+        console.log("Winner with rows", n);
+        return true;
       }
     }
 
     function checkDiagonalLeftRight() {
-      const diagonalCoordinatsLeft = [];
+      const diagonalCoordinatesLeft = [];
       for (let n = 0; n < 3; n++) {
-        diagonalCoordinatsLeft.push(gameboard[n][n]);
+        diagonalCoordinatesLeft.push(gameboard[n][n]);
       }
-      if (diagonalCoordinatsLeft.every((index) => index == userSymbol)) {
-        return console.log("Winner with diagonalCoordinatsLeft");
+      if (diagonalCoordinatesLeft.every((index) => index == userSymbol)) {
+        console.log("Winner with diagonalCoordinatesLeft");
+        return true;
       }
     }
 
@@ -68,7 +71,8 @@ const game = () => {
         diagonalCoordinatsRight.push(gameboard[n][2 - n]);
       }
       if (diagonalCoordinatsRight.every((index) => index == userSymbol)) {
-        return console.log("Winner with checkDiagonalRightLeft");
+        console.log("Winner with checkDiagonalRightLeft");
+        return true;
       }
     }
     checkColumn();
@@ -92,20 +96,22 @@ const game = () => {
       });
     });
   }
+  getCoordinates();
 
   function placeSymbol(x, y, e) {
+    console.log(e.target.innerText);
+    if (e.target.innerText !== "") {
+      return;
+    }
     const userSymbol = getCurrentUserSymbol();
     updateBoard(x, y, userSymbol);
     renderSymbol(e.target, userSymbol);
     switchTurns();
     checkWinner(userSymbol);
   }
-  getCoordinates();
 
   function renderSymbol(square, symbol) {
     square.innerText = symbol;
-    const userPlacement = document.createElement("div");
-    square.appendChild(userPlacement);
   }
 
   function updateBoard(x, y, symbol) {
