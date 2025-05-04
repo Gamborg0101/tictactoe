@@ -4,11 +4,15 @@ const game = () => {
     return { name, symbol, userturn };
   };
 
+  const startingText = document.getElementById("starting-player-text");
+
   function randomizeStartPlayer() {
     let randomizeStartPlayer = Math.floor(Math.random() * 2);
     if (randomizeStartPlayer === 1) {
-      user1.userturn = true;
-    } else if (randomizeStartPlayer === 0) user2.userturn = true;
+      startingText.innerText = user1.name;
+    } else if (randomizeStartPlayer === 0) {
+      startingText.innerText = user2.name;
+    }
   }
 
   const user1 = factoryPlayer("Player 1", "x", false);
@@ -103,6 +107,10 @@ const game = () => {
   const switchTurns = () => {
     user1.userturn = !user1.userturn;
     user2.userturn = !user2.userturn;
+
+    user1.userturn
+      ? (startingText.innerText = user1.name)
+      : (startingText.innerText = user2.name);
   };
 
   function getCoordinates() {
@@ -123,10 +131,10 @@ const game = () => {
 
     const userSymbol = getCurrentUserSymbol();
     updateBoard(x, y, userSymbol);
+    switchTurns();
     renderSymbol(e.target, userSymbol);
 
     checkWinner(userSymbol);
-    switchTurns();
   }
 
   function renderSymbol(square, symbol) {
