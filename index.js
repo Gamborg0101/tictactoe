@@ -97,6 +97,9 @@ const game = () => {
     );
   };
 
+  function checkTie() {
+    return gameboard.every((row) => row.every((cell) => cell !== ""));
+  }
   function winnerDeclaration(user1, user2) {
     const winnerPlacement = document.getElementById("winnerName");
     user1.userturn
@@ -133,6 +136,11 @@ const game = () => {
     updateBoard(x, y, userSymbol);
     switchTurns();
     renderSymbol(e.target, userSymbol);
+    if (checkTie()) {
+      const tieMessage = document.getElementById("winnerName");
+      tieMessage.innerText = "It's a Tie!";
+      gameover = true;
+    }
 
     checkWinner(userSymbol);
   }
