@@ -16,6 +16,31 @@
   font-size: 3rem;
 }
 
+#start-question {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  font-size: 1.5rem;
+}
+
+#player-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  gap: 15px;
+}
+#player-buttons > button {
+  font-size: 1.5rem;
+  padding: 10px;
+  background-color: #eae2b7;
+}
+
+#player-buttons > p {
+  font-size: 1.5rem;
+}
+
 #reset,
 #winnerDeclaration {
   width: 100%;
@@ -28,7 +53,7 @@
 
 #main-container {
   display: flex;
-  margin-top: 80px;
+  margin-top: 30px;
   justify-content: center;
   padding: 10px;
 }
@@ -44,6 +69,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
+  font-size: 10rem;
   border: 2px solid black;
 }

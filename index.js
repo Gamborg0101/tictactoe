@@ -37,12 +37,14 @@ const game = () => {
         winnerDeclaration(user1, user2);
         return true;
       }
+      return false;
     }
 
     function checkRow() {
       for (let n = 0; n < 3; n++) {
         checkSingleRow(n);
       }
+      return false;
     }
     function checkSingleRow(n) {
       if (
@@ -53,6 +55,7 @@ const game = () => {
         gameover = true;
         return true;
       }
+      return false;
     }
 
     function checkDiagonalLeftRight() {
@@ -66,6 +69,7 @@ const game = () => {
         winnerDeclaration(user1, user2);
         return true;
       }
+      return false;
     }
 
     function checkDiagonalRightLeft() {
@@ -79,11 +83,14 @@ const game = () => {
         winnerDeclaration(user1, user2);
         return true;
       }
+      return false;
     }
-    checkColumn();
-    checkRow();
-    checkDiagonalLeftRight();
-    checkDiagonalRightLeft();
+    return (
+      checkColumn() ||
+      checkRow() ||
+      checkDiagonalLeftRight() ||
+      checkDiagonalRightLeft()
+    );
   };
 
   function winnerDeclaration(user1, user2) {
@@ -111,15 +118,13 @@ const game = () => {
   getCoordinates();
 
   function placeSymbol(x, y, e) {
-    if (gameover == true) {
-      return;
-    }
-    if (e.target.innerText !== "") {
-      return;
-    }
+    if (gameover) return;
+    if (e.target.innerText !== "") return;
+
     const userSymbol = getCurrentUserSymbol();
     updateBoard(x, y, userSymbol);
     renderSymbol(e.target, userSymbol);
+
     checkWinner(userSymbol);
     switchTurns();
   }
@@ -141,7 +146,6 @@ function resetGame() {
   const resetButton = document.getElementById("reset");
   const squares = document.querySelectorAll(".square");
   const winnerPlacement = document.getElementById("winnerName");
-
   resetButton.addEventListener("click", () => {
     winnerPlacement.innerText = "";
     squares.forEach((cell) => {
